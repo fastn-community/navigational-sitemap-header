@@ -1,6 +1,7 @@
 -- import: fastn-community.github.io/sitemap-header-doc/docs
 -- import: fastn-community.github.io/navigational-sitemap-header/components
 -- import:  fastn-community.github.io/navigational-sitemap-header
+-- import: fifthtry.github.io/fastn-io-typography as typo
 
 
 
@@ -12,6 +13,8 @@ package-name: navigational-sitemap-header
 package-full-name: fastn-community.github.io/navigational-sitemap-header
 github: https://github.com/fastn-community/navigational-sitemap-header
 category: fastn-community.github.io/navigational-sitemap-header
+types: $typo.types
+license-url: NULL
 ;; license-url: https://github.com/fastn-community/navigational-sitemap-header/blob/main/LICENSE
 
 
