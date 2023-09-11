@@ -761,6 +761,7 @@ white-space: nowrap
 padding-left.px: 10
 color if { header-item.mouse-in }: $inherited.colors.cta-primary.base
 color if { header-item.is-active }: $inherited.colors.cta-primary.base
+color: $inherited.colors.text-strong
 $on-mouse-leave$: $ftd.set-bool($a = $header-item.mouse-in, v = false)
 $on-mouse-enter$: $ftd.set-bool($a = $header-item.mouse-in, v = true)
 margin-left.px: 10
