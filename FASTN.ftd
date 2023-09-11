@@ -4,6 +4,7 @@
 favicon: /-/fastn-community.github.io/sitemap-header/favicon.ico
 
 -- fastn.dependency: fastn-community.github.io/sitemap-header-doc
+-- fastn.dependency: fifthtry.github.io/product-switcher 
 
 -- fastn.auto-import: fastn-community.github.io/sitemap-header/assets
 

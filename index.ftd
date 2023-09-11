@@ -1,6 +1,7 @@
 -- import: fastn-community.github.io/sitemap-header-doc/docs
 -- import:  fastn-community.github.io/sitemap-header
-
+-- import:  fastn-community.github.io/sitemap-header/components/header1
+-- import:  fastn-community.github.io/sitemap-header/data
 
 
 
@@ -29,14 +30,15 @@ string site-url:
 ;; =======================<IMPLEMENT THE HEADER HERE>===========================
 ;; =============================================================================
 
--- ftd.text: Implement the **header** component here
-color: $inherited.colors.text
-background.solid: $inherited.colors.background.base
-width: fill-container
-height: fill-container
-text-align: center
-role: $inherited.types.copy-regular
-padding-vertical.px: 32
+-- header1.header:
+sections: $data.sitemap.sections
+sub-sections: $data.sitemap.subsections
+current-subsection: $data.sitemap.current-subsection
+current-section: $data.sitemap.current-section
+current-page: $data.sitemap.current-page
+site-url: index.html
+site-name: fastn
+site-logo: $data.site-logo
 
 ;; =============================================================================
 ;; ================================== END ======================================
