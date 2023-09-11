@@ -5298,7 +5298,7 @@ menu_icon: global.fastn_community_github_io_navigational_sitemap_header_assets__
 sections: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("sections"),
 sidebar_open: fastn.mutable(false),
 sub_sections: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("subsections"),
-toc: fastn.mutableList([]),
+toc: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("toc"),
 current_section: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("current_section"),
 current_subsection: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("current_subsection"),
 current_page: global.fastn_community_github_io_navigational_sitemap_header_data__sitemap.get("current_page"),
@@ -5409,6 +5409,7 @@ full_width: __args__.full_width,
 max_width: __args__.max_width,
 github_icon: __args__.github_icon,
 github_url: __args__.github_url,
+toc: __args__.toc,
 logo_ui: __args__.logo_ui
 });
 return rooti0;
