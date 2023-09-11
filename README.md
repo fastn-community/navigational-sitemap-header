@@ -19,18 +19,18 @@ Here's an example of how the Header Component might look when rendered:
 
 ## Getting Started
 
-To use the Business Card Component in your `fastn` package, follow these steps:
+To use the Header Component in your `fastn` package, follow these steps:
 
 1. **Add the Header Dependency**: Open your `FASTN.ftd` file and add 
    the following line to include the Header component:
    ```ftd
-   -- fastn.dependency: fastn-community.github.io/sitemap-header
+   -- fastn.dependency: fastn-community.github.io/navigational-sitemap-header
    ```
 2. **Use the Header Component**: In the file where you want to add 
    the header (e.g., `index.ftd`), you can import the component and 
    use it like this:
     ```ftd
-   -- import: fastn-community.github.io/sitemap-header as header
+   -- import: fastn-community.github.io/navigational-sitemap-header as header
 
    -- header.header: My Site
    site-logo: $assets.files.images.ipsum-logo.svg
@@ -39,7 +39,7 @@ To use the Business Card Component in your `fastn` package, follow these steps:
    
 ## Customization
 
-Feel free to customize the business card by adding, removing, or modifying 
+Feel free to customize the Header by adding, removing, or modifying 
 fields.
 
 ## Fields
