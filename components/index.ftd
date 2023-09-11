@@ -14,7 +14,7 @@ ftd.image-src menu-icon: $assets.files.static.header.hamburger-dark.svg
 pr.toc-item list sections: $data.sitemap.sections
 boolean $sidebar-open: false
 pr.toc-item list sub-sections: $data.sitemap.subsections
-pr.toc-item list toc: 
+pr.toc-item list toc: $data.sitemap.toc
 optional pr.toc-item current-section: $data.sitemap.current-section
 optional pr.toc-item current-subsection: $data.sitemap.current-subsection
 optional pr.toc-item current-page: $data.sitemap.current-page
@@ -90,6 +90,7 @@ max-width: $header.max-width
 github-icon: $header.github-icon
 github-url: $header.github-url
 logo-ui: $header.logo-ui
+toc: $header.toc
 
 -- end: ftd.desktop
 
