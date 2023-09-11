@@ -590,6 +590,7 @@ fastn_dom.propertyMap = {
     "justify-content": "jc",
     "left": "l",
     "link": "lk",
+    "link-color": "lkc",
     "margin": "m",
     "margin-bottom": "mb",
     "margin-horizontal": "mh",
@@ -803,6 +804,7 @@ fastn_dom.PropertyKind = {
     LoopVideo: 113,
     Controls: 114,
     Muted: 115,
+    LinkColor: 116,
 };
 
 
@@ -1400,7 +1402,7 @@ class Node2 {
     attachCss(property, value, createClass, className) {
         let propertyShort = fastn_dom.propertyMap[property] || property;
         propertyShort = `__${propertyShort}`;
-        let cls = `${propertyShort}-${JSON.stringify(value)}`;
+        let cls = `${propertyShort}-${JSON.stringify(fastn_dom.class_count)}`;
         if (!!className) {
            cls = className;
         } else {
@@ -1764,7 +1766,7 @@ class Node2 {
                     this.attachCss("align-items", "end");
                     break;
                 case 'bottom-center':
-                    this.attachCss("justify-content", "start");
+                    this.attachCss("justify-content", "center");
                     this.attachCss("align-items", "end");
                     break;
                 case 'bottom-right':
@@ -1773,6 +1775,58 @@ class Node2 {
                     break;
             }
         }
+    }
+    attachLinkColor(value) {
+        ftd.dark_mode.addClosure(fastn.closure(() => {
+            if (!ssr) {
+                const anchors = this.#node.tagName.toLowerCase() === 'a'
+                    ? [this.#node]
+                    : Array.from(this.#node.querySelectorAll("a"));
+                let propertyShort = `__${fastn_dom.propertyMap["link-color"]}`;
+
+                if(fastn_utils.isNull(value)) {
+                    anchors.forEach(a => {
+                        a.classList.values().forEach(className => {
+                            if(className.startsWith(`${propertyShort}-`)) {
+                                a.classList.remove(className);
+                            }
+                        });
+                    });
+                } else {
+                    const lightValue = fastn_utils.getStaticValue(value.get("light"));
+                    const darkValue = fastn_utils.getStaticValue(value.get("dark"));
+                    let cls = `${propertyShort}-${JSON.stringify(lightValue)}`;
+                    
+                    if (!fastn_dom.unsanitised_classes[cls]) {
+                        fastn_dom.unsanitised_classes[cls] = ++fastn_dom.class_count;
+                    }
+
+                    cls = `${propertyShort}-${fastn_dom.unsanitised_classes[cls]}`;
+
+                    const cssClass = `.${cls}`;
+
+                    if (!fastn_dom.classes[cssClass]) {
+                        const obj = { property: "color", value: lightValue };
+                        fastn_dom.classes[cssClass] = fastn_dom.classes[cssClass] || obj;
+                        let styles = document.getElementById('styles');
+                        styles.innerHTML = `${styles.innerHTML}${getClassAsString(cssClass, obj)}\n`;
+                    }
+
+                    if(lightValue !== darkValue) {
+                        const obj = { property: "color", value: darkValue };
+                        let darkCls = `body.dark ${cssClass}`;
+                        if (!fastn_dom.classes[darkCls]) {
+                            fastn_dom.classes[darkCls] = fastn_dom.classes[darkCls] || obj;
+                            let styles = document.getElementById('styles');
+                            styles.innerHTML = `${styles.innerHTML}${getClassAsString(darkCls, obj)}\n`;
+                        }
+                    }
+
+                    anchors.forEach(a => a.classList.add(cls));
+                }
+            }
+        }).addNodeProperty(this, null, inherited));
+        this.#mutables.push(ftd.dark_mode);
     }
     setStaticProperty(kind, value, inherited) {
         // value can be either static or mutable
@@ -2024,6 +2078,8 @@ class Node2 {
             this.attachColorCss("border-top-color", staticValue);
         } else if (kind === fastn_dom.PropertyKind.BorderBottomColor) {
             this.attachColorCss("border-bottom-color", staticValue);
+        } else if (kind === fastn_dom.PropertyKind.LinkColor) {
+            this.attachLinkColor(staticValue);
         } else if (kind === fastn_dom.PropertyKind.Color) {
             this.attachColorCss("color", staticValue, true);
         } else if (kind === fastn_dom.PropertyKind.Background) {
@@ -3867,7 +3923,7 @@ window.ftd = ftd;
 
 ftd.toggle = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(!fastn_utils.getter(__args__.a));
@@ -3883,7 +3939,7 @@ ftd.toggle = function (args) {
 }
 ftd.increment = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(fastn_utils.getter(__args__.a) + 1);
@@ -3899,7 +3955,7 @@ ftd.increment = function (args) {
 }
 ftd.increment_by = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(fastn_utils.getter(__args__.a) + fastn_utils.getter(__args__.v));
@@ -3915,7 +3971,7 @@ ftd.increment_by = function (args) {
 }
 ftd.enable_light_mode = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     return (enable_light_mode());
@@ -3925,7 +3981,7 @@ ftd.enable_light_mode = function (args) {
 }
 ftd.enable_dark_mode = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     return (enable_dark_mode());
@@ -3935,7 +3991,7 @@ ftd.enable_dark_mode = function (args) {
 }
 ftd.enable_system_mode = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     return (enable_system_mode());
@@ -3945,7 +4001,7 @@ ftd.enable_system_mode = function (args) {
 }
 ftd.set_bool = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(__args__.v);
@@ -3961,7 +4017,7 @@ ftd.set_bool = function (args) {
 }
 ftd.set_boolean = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(__args__.v);
@@ -3977,7 +4033,7 @@ ftd.set_boolean = function (args) {
 }
 ftd.set_string = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(__args__.v);
@@ -3993,7 +4049,7 @@ ftd.set_string = function (args) {
 }
 ftd.set_integer = function (args) {
   let __fastn_super_package_name__ = __fastn_package_name__;
-  __fastn_package_name__ = "__user_name___github_io___repo_name__";
+  __fastn_package_name__ = "fastn_community_github_io_sitemap_header";
   try {
     let __args__ = args;
     let fastn_utils_val___args___a = fastn_utils.clone(__args__.v);
