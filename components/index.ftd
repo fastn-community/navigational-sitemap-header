@@ -5,7 +5,7 @@
 -- component header:
 optional ftd.image-src site-logo:
 optional ftd.image-src brand-site-logo:
-string site-url: /
+string site-url: index.html
 optional string site-name:
 optional string brand-site-url:
 optional string brand-site-name:
